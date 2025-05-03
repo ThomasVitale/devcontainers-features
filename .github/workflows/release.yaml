@@ -1,11 +1,11 @@
-name: "Release dev container features & Generate Documentation"
+name: "Release"
 on:
   workflow_dispatch:
 
 jobs:
   deploy:
     if: ${{ github.ref == 'refs/heads/main' }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     permissions:
       contents: write
       pull-requests: write
