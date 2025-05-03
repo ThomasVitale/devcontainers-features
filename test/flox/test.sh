@@ -40,7 +40,7 @@ source dev-container-features-test-lib
 # Feature-specific tests
 # The 'check' command comes from the dev-container-features-test-lib. Syntax is...
 # check <LABEL> <cmd> [args...]
-check "check flox version reports a version" bash -c "flox version"
+check "check flox version" bash -c "flox --version"
 
 # Report results
 # If any of the checks above exited with a non-zero exit code, the test will fail.
