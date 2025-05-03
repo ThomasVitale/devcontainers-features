@@ -14,4 +14,8 @@ nix profile install \
 
 flox --version
 
+PROFILE_SCRIPT_PATH="/etc/profile.d/flox.sh"
+echo "export PATH=\$PATH:/nix/var/nix/profiles/default/bin" | tee "${PROFILE_SCRIPT_PATH}"
+chmod +x "${PROFILE_SCRIPT_PATH}"
+
 echo "Installed Flox"
