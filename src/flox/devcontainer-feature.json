@@ -3,10 +3,9 @@
     "id": "flox",
     "version": "1.0.3",
     "description": "Your development environment, everywhere.",
+    "documentationURL": "https://github.com/ThomasVitale/devcontainers-features/tree/main/src/flox",
+    "licenseURL": "https://github.com/ThomasVitale/devcontainers-features/blob/main/LICENSE",
     "dependsOn": {
         "ghcr.io/devcontainers/features/nix": {}
-    },
-    "containerEnv": {
-        "PATH": "/nix/var/nix/profiles/default/bin:${PATH}"
     }
 }
