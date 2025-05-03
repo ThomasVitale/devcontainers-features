@@ -1,7 +1,7 @@
 {
     "name": "Flox",
     "id": "flox",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Your development environment, everywhere.",
     "dependsOn": {
         "ghcr.io/devcontainers/features/nix": {}
