@@ -1,9 +1,12 @@
 {
     "name": "Flox",
     "id": "flox",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Your development environment, everywhere.",
     "dependsOn": {
         "ghcr.io/devcontainers/features/nix": {}
+    },
+    "containerEnv": {
+        "PATH": "/nix/var/nix/profiles/default/bin:${PATH}"
     }
 }
