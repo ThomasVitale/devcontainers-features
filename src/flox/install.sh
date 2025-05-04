@@ -48,7 +48,7 @@ if ! pgrep -x nix-daemon > /dev/null; then
         echo "(!) Failed to start nix-daemon during build."
         cat /tmp/nix-daemon-build.log || echo "No log file found."
         # Optionally exit here if daemon is critical, or proceed cautiously
-        # exit 1 
+        # exit 1
     else
         echo "nix-daemon started successfully."
     fi
@@ -56,13 +56,16 @@ else
     echo "nix-daemon already running."
 fi
 
+# Execute nix commands as user, explicitly setting PATH and sourcing environment
+NIX_BIN_DIR="/nix/var/nix/profiles/default/bin"
+NIX_ENV_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 
-su ${USERNAME} -c "echo '--- Inside su (profile install) ---'; echo \"PATH before source: \$PATH\"; . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; echo \"Source exit code: \$?\"; echo \"PATH after source: \$PATH\"; command -v nix || echo 'nix command still not found'; nix profile install \
+su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; . \"${NIX_ENV_SCRIPT}\"; nix profile install \
     --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
     --accept-flake-config \
     'github:flox/flox'"
 
-su ${USERNAME} -c "echo '--- Inside su (flox version) ---'; echo \"PATH before source: \$PATH\"; . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; echo \"Source exit code: \$?\"; echo \"PATH after source: \$PATH\"; command -v flox || echo 'flox command not found'; flox --version"
+su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; . \"${NIX_ENV_SCRIPT}\"; flox --version"
 
 echo "Installed Flox for user ${USERNAME}"
