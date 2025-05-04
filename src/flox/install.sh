@@ -57,12 +57,12 @@ else
 fi
 
 
-su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix profile install \
+su ${USERNAME} -c "echo '--- Inside su (profile install) ---'; echo \"PATH before source: \$PATH\"; . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; echo \"Source exit code: \$?\"; echo \"PATH after source: \$PATH\"; command -v nix || echo 'nix command still not found'; nix profile install \
     --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
     --accept-flake-config \
     'github:flox/flox'"
 
-su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && flox --version"
+su ${USERNAME} -c "echo '--- Inside su (flox version) ---'; echo \"PATH before source: \$PATH\"; . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh; echo \"Source exit code: \$?\"; echo \"PATH after source: \$PATH\"; command -v flox || echo 'flox command not found'; flox --version"
 
 echo "Installed Flox for user ${USERNAME}"
