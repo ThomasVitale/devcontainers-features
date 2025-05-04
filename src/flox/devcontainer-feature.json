@@ -1,7 +1,7 @@
 {
     "name": "Flox",
     "id": "flox",
-    "version": "1.0.5",
+    "version": "1.0.4",
     "description": "Your development environment, everywhere.",
     "documentationURL": "https://github.com/ThomasVitale/devcontainers-features/tree/main/src/flox",
     "licenseURL": "https://github.com/ThomasVitale/devcontainers-features/blob/main/LICENSE",
