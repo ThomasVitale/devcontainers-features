@@ -51,7 +51,7 @@ nix profile install \
     --accept-flake-config \
     'github:flox/flox'
 
-flox version
+flox --version
 
 su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; . \"${NIX_ENV_SCRIPT}\"; flox --version"
 
