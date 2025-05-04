@@ -27,13 +27,13 @@ echo "Installing Flox for user ${USERNAME}"
 echo 'extra-trusted-substituters = https://cache.flox.dev' | tee -a /etc/nix/nix.conf
 echo 'extra-trusted-public-keys = flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=' | tee -a /etc/nix/nix.conf
 
-# Ensure nix-users group exists and user is a member (needed for multi-user nix daemon access)
-if ! getent group nix-users > /dev/null; then
-    groupadd --system nix-users
-fi
-if [ "${USERNAME}" != "root" ]; then
-    usermod -aG nix-users ${USERNAME}
-fi
+# # Ensure nix-users group exists and user is a member (needed for multi-user nix daemon access)
+# if ! getent group nix-users > /dev/null; then
+#     groupadd --system nix-users
+# fi
+# if [ "${USERNAME}" != "root" ]; then
+#     usermod -aG nix-users ${USERNAME}
+# fi
 
 # Execute nix commands as user, explicitly setting PATH and sourcing environment
 NIX_BIN_DIR="/nix/var/nix/profiles/default/bin"
