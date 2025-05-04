@@ -27,12 +27,12 @@ echo "Installing Flox for user ${USERNAME}"
 echo 'extra-trusted-substituters = https://cache.flox.dev' | tee -a /etc/nix/nix.conf
 echo 'extra-trusted-public-keys = flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=' | tee -a /etc/nix/nix.conf
 
-su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix profile install \
+su ${USERNAME} -c "nix-daemon && nix profile install \
     --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
     --accept-flake-config \
     'github:flox/flox'"
 
-su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && flox --version"
+su ${USERNAME} -c "nix-daemon && flox --version"
 
 echo "Installed Flox for user ${USERNAME}"
