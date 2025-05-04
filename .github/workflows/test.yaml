@@ -20,8 +20,8 @@ jobs:
 
   test-features:
     runs-on: ubuntu-24.04
-    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         features:
           - flox
@@ -40,7 +40,6 @@ jobs:
 
   test-global:
     runs-on: ubuntu-24.04
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
 

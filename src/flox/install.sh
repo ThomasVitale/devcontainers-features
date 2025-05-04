@@ -35,6 +35,28 @@ if [ "${USERNAME}" != "root" ]; then
     usermod -aG nix-users ${USERNAME}
 fi
 
+# Start the nix-daemon if it's not already running (needed for multi-user install during build)
+if ! pgrep -x nix-daemon > /dev/null; then
+    echo "Starting nix-daemon..."
+    # Source the environment for the daemon and run it in the background
+    . /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh
+    /nix/var/nix/profiles/default/bin/nix-daemon > /tmp/nix-daemon-build.log 2>&1 &
+    # Wait a moment for the daemon to start and the socket to be available
+    sleep 5
+    echo "Checking daemon status..."
+    if ! pgrep -x nix-daemon > /dev/null; then
+        echo "(!) Failed to start nix-daemon during build."
+        cat /tmp/nix-daemon-build.log || echo "No log file found."
+        # Optionally exit here if daemon is critical, or proceed cautiously
+        # exit 1 
+    else
+        echo "nix-daemon started successfully."
+    fi
+else
+    echo "nix-daemon already running."
+fi
+
+
 su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix profile install \
     --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
