@@ -27,12 +27,20 @@ echo "Installing Flox for user ${USERNAME}"
 echo 'extra-trusted-substituters = https://cache.flox.dev' | tee -a /etc/nix/nix.conf
 echo 'extra-trusted-public-keys = flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=' | tee -a /etc/nix/nix.conf
 
-su ${USERNAME} -c "nix-daemon && nix profile install \
+# Ensure nix-users group exists and user is a member (needed for multi-user nix daemon access)
+if ! getent group nix-users > /dev/null; then
+    groupadd --system nix-users
+fi
+if [ "${USERNAME}" != "root" ]; then
+    usermod -aG nix-users ${USERNAME}
+fi
+
+su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && nix profile install \
     --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
     --accept-flake-config \
     'github:flox/flox'"
 
-su ${USERNAME} -c "nix-daemon && flox --version"
+su ${USERNAME} -c ". /nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh && flox --version"
 
 echo "Installed Flox for user ${USERNAME}"
