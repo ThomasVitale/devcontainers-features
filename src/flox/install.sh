@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -e
 
 USERNAME="${USERNAME:-"${_REMOTE_USER:-"automatic"}"}"
@@ -28,6 +28,7 @@ echo 'extra-trusted-substituters = https://cache.flox.dev' | tee -a /etc/nix/nix
 echo 'extra-trusted-public-keys = flox-cache-public-1:7F4OyH7ZCnFhcze3fJdfyXYLQw/aV7GEed86nQ7IsOs=' | tee -a /etc/nix/nix.conf
 
 su ${USERNAME} -c "nix profile install \
+    --profile /nix/var/nix/profiles/default \
     --experimental-features \"nix-command flakes\" \
     --accept-flake-config \
     'github:flox/flox'"
