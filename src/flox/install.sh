@@ -47,7 +47,7 @@ NIX_ENV_SCRIPT="/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh"
 
 nix profile install \
     --profile /nix/var/nix/profiles/default \
-    --experimental-features \"nix-command flakes\" \
+    --experimental-features "nix-command flakes" \
     --accept-flake-config \
     'github:flox/flox'
 
