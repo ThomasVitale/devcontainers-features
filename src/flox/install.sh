@@ -53,7 +53,7 @@ nix profile install \
 
 flox --version
 
-su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; . \"${NIX_ENV_SCRIPT}\"; flox --version"
-su ${USERNAME} -c "flox --version"
+#su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; . \"${NIX_ENV_SCRIPT}\"; flox --version"
+su ${USERNAME} -c "export PATH=\"${NIX_BIN_DIR}:\$PATH\"; flox --version"
 
 echo "Installed Flox for user ${USERNAME}"
